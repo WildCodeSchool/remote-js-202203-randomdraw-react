@@ -27,6 +27,8 @@ function App() {
 
   const [speeches, setSpeeches] = useState([]);
 
+  const [editedStudent, setEditedStudent] = useState({firstName: "", lastName: ""});
+
   function handleDraw() {
     const randomStudent = students[Math.floor(Math.random() * students.length)];
     setDrawnStudent(randomStudent);
@@ -56,20 +58,40 @@ function App() {
     );
   }
 
-  function handleNewStudent(firstName, lastName) {
-    const maxId = students.reduce((maxId, currStud) => maxId < currStud.id ? maxId = currStud.id : maxId, 0) + 1;
-    setStudents([...students, new Student(maxId, firstName, lastName)]);
+  function handleSaveStudent(editedStudent) {
+    if (editedStudent.id) {
+      console.log(editedStudent);
+      setStudents(students.map(student => {
+        if (student.id === editedStudent.id) {
+          return {...student, firstName: editedStudent.firstName, lastName: editedStudent.lastName}
+        } else {
+          return student;
+        }
+      }))
+    } else {
+      const maxId = students.reduce((maxId, currStud) => maxId < currStud.id ? maxId = currStud.id : maxId, 0) + 1;
+      setStudents([...students, new Student(maxId, editedStudent.firstName, editedStudent.lastName)]);
+    }
+    handleReset();
   }
 
   function handleDeleteStudent(studentId) {
     setStudents(students.filter(student => student.id !== studentId));
   }
 
+  function handleEditStudent(studentId) {
+    setEditedStudent(students.find(student => student.id === studentId));
+  }
+
+  function handleReset() {
+    setEditedStudent({firstName: "", lastName: ""});
+  }
+
   return (
     <div className="App">
       <Header />
       <Draw drawnStudent={drawnStudent} onDraw={handleDraw} />
-      <Crew students={students} onNewStudent={handleNewStudent} onDeleteStudent={handleDeleteStudent}/>
+      <Crew students={students} onSaveStudent={handleSaveStudent} onDeleteStudent={handleDeleteStudent} onEditStudent={handleEditStudent} editedStudent={editedStudent} onReset={handleReset}/>
       <SpeechList speeches={speeches} />
       {/* Mettre le composant Footer */}
     </div>

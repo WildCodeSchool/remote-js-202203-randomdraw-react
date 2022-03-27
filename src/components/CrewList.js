@@ -1,7 +1,7 @@
 import CrewListRow from "./CrewListRow";
 
-function CrewList({ students, onDeleteStudent }) {
-    const studentRows = students.map(studentElement => <CrewListRow key={studentElement.id} student={studentElement} onDeleteStudent={onDeleteStudent} />)
+function CrewList({ students, onDeleteStudent, onEditStudent }) {
+    const studentRows = students.map(studentElement => <CrewListRow key={studentElement.id} student={studentElement} onEditStudent={onEditStudent} onDeleteStudent={onDeleteStudent} />)
 
     return (
         <table>

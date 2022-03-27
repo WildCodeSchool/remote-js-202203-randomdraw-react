@@ -1,13 +1,99 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'JetBrains Mono', monospace;
+
+  display       : flex;
+  flex-direction: column;
+  min-height    : 100vh;
+  margin        : 0;
+  padding       : 0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+section {
+  padding       : 0.5rem;
+  display       : flex;
+  flex-direction: column;
+}
+
+button {
+  background-color: #7678ed;
+  color           : white;
+  font-family     : 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-weight     : bold;
+
+  padding      : 0.4rem 0.8rem;
+  border       : none;
+  border-radius: 0.3rem;
+  margin       : auto;
+}
+
+button:hover {
+  background-color: #5657be;
+  box-shadow: 0 0 0.5rem grey;
+}
+
+button:disabled {
+  background-color: grey;
+}
+
+table {
+  border         : solid 0.2rem;
+  border-collapse: collapse;
+  text-align     : center;
+}
+
+tr {
+  border: solid 0.1rem;
+}
+
+td,
+th {
+  border : dashed 0.1rem;
+  padding: 0.2rem 0.3rem;
+}
+
+form {
+  display       : flex;
+  flex-direction: column;
+  padding       : 1rem;
+  align-items   : center;
+}
+
+.form-field {
+  min-width: 100%;
+  margin   : 0.3rem 0;
+}
+
+.form-field>input {
+  min-width : 100%;
+  box-sizing: border-box;
+  height    : 2rem;
+}
+
+/* UTILITIES */
+.no-bullets {
+  list-style: none;
+  margin    : 0;
+  padding   : 0;
+}
+
+/* DRAW STUDENT PAGE */
+@media (min-width: 768px) {
+  section {
+      width : 55vw;
+      margin: auto;
+  }
+
+  form {
+      flex-direction : row;
+      justify-content: center;
+  }
+
+  .form-field {
+      min-width: auto;
+      margin   : 0 1rem;
+  }
+
+  .form-field>input {
+      min-width: auto;
+  }
 }

@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-function CrewForm({ onNewStudent }) {
+function CrewForm({ onSaveStudent, editedStudent, onReset }) {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
     function handleSumbit(event) {
         event.preventDefault();
-        onNewStudent(firstName, lastName);
+        onSaveStudent({id: editedStudent.id, firstName: firstName, lastName: lastName});
     }
 
+    useEffect(() => {
+        setFirstName(editedStudent.firstName);
+        setLastName(editedStudent.lastName);
+    }, [editedStudent]);
+
     return (
-        <form onSubmit={handleSumbit}>
+        <form onSubmit={handleSumbit} onReset={onReset}>
             <div className="form-field">
                 <label htmlFor="first-name">First name</label>
                 <input type="text" name="first-name" id="first-name" required value={firstName} onChange={event => setFirstName(event.target.value)} />
@@ -21,6 +26,7 @@ function CrewForm({ onNewStudent }) {
                 <label htmlFor="last-name">Last name</label>
                 <input type="text" name="last-name" id="last-name" required value={lastName} onChange={event => setLastName(event.target.value)}/>
             </div>
+            <button type="reset">Reset form 🔄</button>
             <button type="submit">Save 💾</button>
         </form>
     );
