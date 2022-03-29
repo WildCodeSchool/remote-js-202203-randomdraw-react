@@ -1,13 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { StudentContext, StudentDispatchContext } from "../App";
+import { RESET_STUDENT, SAVE_STUDENT } from "../studentReducer";
 
-function CrewForm({ onSaveStudent, editedStudent, onReset }) {
+function CrewForm() {
+
+    const { editedStudent } = useContext(StudentContext);
+    const dispatch = useContext(StudentDispatchContext);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
 
     function handleSumbit(event) {
         event.preventDefault();
-        onSaveStudent({id: editedStudent.id, firstName: firstName, lastName: lastName});
+        dispatch({
+            type: SAVE_STUDENT,
+            studentToSave: { id: editedStudent.id, firstName: firstName, lastName: lastName }
+        });
+        //onSaveStudent({id: editedStudent.id, firstName: firstName, lastName: lastName});
     }
 
     useEffect(() => {
@@ -16,7 +25,7 @@ function CrewForm({ onSaveStudent, editedStudent, onReset }) {
     }, [editedStudent]);
 
     return (
-        <form onSubmit={handleSumbit} onReset={onReset}>
+        <form onSubmit={handleSumbit} onReset={() => dispatch({ type: RESET_STUDENT })}>
             <div className="form-field">
                 <label htmlFor="first-name">First name</label>
                 <input type="text" name="first-name" id="first-name" required value={firstName} onChange={event => setFirstName(event.target.value)} />
@@ -24,7 +33,7 @@ function CrewForm({ onSaveStudent, editedStudent, onReset }) {
 
             <div className="form-field">
                 <label htmlFor="last-name">Last name</label>
-                <input type="text" name="last-name" id="last-name" required value={lastName} onChange={event => setLastName(event.target.value)}/>
+                <input type="text" name="last-name" id="last-name" required value={lastName} onChange={event => setLastName(event.target.value)} />
             </div>
             <button type="reset">Reset form 🔄</button>
             <button type="submit">Save 💾</button>

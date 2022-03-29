@@ -1,15 +1,13 @@
 import CrewForm from "./CrewForm";
 import CrewList from "./CrewList";
 
-function Crew({ students, onSaveStudent, onDeleteStudent, onEditStudent, editedStudent, onReset }) {
+function Crew() {
     return (
         <section>
             <h2>The crew 👨‍🎓</h2>
-            <CrewForm onSaveStudent={onSaveStudent} editedStudent={editedStudent} onReset={onReset}/>
-            <CrewList students={students} onDeleteStudent={onDeleteStudent} onEditStudent={onEditStudent} />
+            <CrewForm />
+            <CrewList />
         </section>
-        // formulaire d'édition de membre
-        // tableau de membres
     );
 }
 
